@@ -1,0 +1,40 @@
+﻿namespace FYProject
+{
+    public static class AssetUitity
+    {
+        public static string GetConfigAsset(string assetName)
+        {
+            return string.Format("Assets/GameMain/Configs/{0}.txt", assetName);
+        }
+
+        public static string GetDataTableAsset(string assetName)
+        {
+            return string.Format("Assets/GameMain/DataTables/{0}.txt", assetName);
+        }
+
+        public static string GetFontAsset(string assetName)
+        {
+            return string.Format("Assets/GameMain/Localization/{0}/Fonts/{1}.ttf", GameEntry.Localization.Language.ToString(), assetName);
+        }
+
+        public static string GetSceneAsset(string assetName)
+        {
+            return string.Format("Assets/GameMain/Scenes/{0}.unity", assetName);
+        }
+
+        public static string GetUISoundAsset(string assetName)
+        {
+            return string.Format("Assets/GameMain/Audios/UISounds/{0}.wav", assetName);
+        }
+
+        public static string GetUIFormAsset(string assetName)
+        {
+            return string.Format("Assets/GameMain/Prefabs/UI/UIForms/{0}.prefab", assetName);
+        }
+
+        public static string GetMusicAsset(string assetName)
+        {
+            return string.Format("Assets/GameMain/Audios/Music/{0}.mp3", assetName);
+        }
+    }
+}
