@@ -84,7 +84,7 @@ namespace FYProject
             LoadDataTable("Music");
 
             // Preload dictionaries
-            //LoadDictionary("Default");
+            LoadDictionary("Default");
 
             // Preload fonts
             LoadFont("MainFont");
