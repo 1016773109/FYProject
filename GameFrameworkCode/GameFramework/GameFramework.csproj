@@ -309,6 +309,7 @@
     <Compile Include="WebRequest\WebRequestSuccessEventArgs.cs" />
   </ItemGroup>
   <PropertyGroup>
-    <PostBuildEvent>cd $(SolutionDir)Build .GameFramework.py $(ConfigurationName) $(TargetDir) $(TargetName)</PostBuildEvent>
+    <PostBuildEvent>Copy "$(TargetDir)*.dll" "$(SolutionDir)..\Project\Assets\GameFramework\Libraries\"
+Copy "$(TargetDir)*.xml" "$(SolutionDir)..\Project\Assets\GameFramework\Libraries\"</PostBuildEvent>
   </PropertyGroup>
 </Project>
