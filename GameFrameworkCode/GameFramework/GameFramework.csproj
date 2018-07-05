@@ -308,4 +308,7 @@
     <Compile Include="WebRequest\WebRequestStartEventArgs.cs" />
     <Compile Include="WebRequest\WebRequestSuccessEventArgs.cs" />
   </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>cd $(SolutionDir)Build .GameFramework.py $(ConfigurationName) $(TargetDir) $(TargetName)</PostBuildEvent>
+  </PropertyGroup>
 </Project>
