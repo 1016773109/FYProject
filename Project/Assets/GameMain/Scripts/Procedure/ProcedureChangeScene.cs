@@ -88,6 +88,7 @@ namespace FYProject
 
             if (m_ChangeToMenu)
             {
+                procedureOwner.SetData<VarInt>(Constant.ProcedureData.MenuBackgroundMusic, m_BackgroundMusicId);
                 ChangeState<ProcedureMenu>(procedureOwner);
             }
             else

@@ -24,7 +24,7 @@ namespace FYProject
 
         public void OnAboutButtonClick()
         {
-            GameEntry.UI.OpenUIForm(UIFormId.AboutForm);
+            GameEntry.UI.OpenUIForm(UIFormId.AboutForm, m_ProcedureMenu);
         }
 
         public void OnQuitButtonClick()

@@ -82,6 +82,7 @@ namespace FYProject
             LoadDataTable("Scene");
             LoadDataTable("UIForm");
             LoadDataTable("Music");
+            LoadDataTable("UISound");
 
             // Preload dictionaries
             LoadDictionary("Default");

@@ -19,13 +19,11 @@ namespace FYProject
                 return null;
             }
 
-            PlaySoundParams playSoundParams = new PlaySoundParams
-            {
-                Priority = drUISound.Priority,
-                Loop = false,
-                VolumeInSoundGroup = drUISound.Volume,
-                SpatialBlend = 0f,
-            };
+            PlaySoundParams playSoundParams = new PlaySoundParams();
+            playSoundParams.Priority = drUISound.Priority;
+            playSoundParams.Loop = false;
+            playSoundParams.VolumeInSoundGroup = drUISound.Volume;
+            playSoundParams.SpatialBlend = 0f;
 
             return soundComponent.PlaySound(AssetUitity.GetUISoundAsset(drUISound.AssetName), "UISound", Constant.AssetPriority.UISoundAsset, playSoundParams, userData);
         }
@@ -40,14 +38,12 @@ namespace FYProject
                 return null;
             }
 
-            PlaySoundParams playSoundParams = new PlaySoundParams
-            {
-                Priority = 64,
-                Loop = true,
-                VolumeInSoundGroup = 1f,
-                FadeInSeconds = FadeVolumeDuration,
-                SpatialBlend = 0f,
-            };
+            PlaySoundParams playSoundParams = new PlaySoundParams();
+            playSoundParams.Priority = 64;
+            playSoundParams.Loop = true;
+            playSoundParams.VolumeInSoundGroup = 1f;
+            playSoundParams.FadeInSeconds = FadeVolumeDuration;
+            playSoundParams.SpatialBlend = 0f;
 
             return soundComponent.PlaySound(AssetUitity.GetMusicAsset(drMusic.AssetName), "Music", Constant.AssetPriority.MusicAsset, playSoundParams, userData);
         }

@@ -13,6 +13,9 @@ namespace FYProject
 
         private bool m_StartGame = false;
 
+        private int m_MenuBackgroundMusic = 0;
+
+
         public override bool UseNativeDialog
         {
             get
@@ -26,12 +29,18 @@ namespace FYProject
             m_StartGame = true;
         }
 
+        public int GetBackgroundMusic()
+        {
+            return m_MenuBackgroundMusic;
+        }
 
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
 
             GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
+
+            m_MenuBackgroundMusic = procedureOwner.GetData<VarInt>(Constant.ProcedureData.MenuBackgroundMusic).Value;
 
             m_StartGame = false;
             GameEntry.UI.OpenUIForm(UIFormId.MenuForm, this);

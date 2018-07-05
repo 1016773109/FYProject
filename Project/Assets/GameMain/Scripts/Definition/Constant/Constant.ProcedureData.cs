@@ -10,6 +10,8 @@ namespace FYProject
         {
             public const string NextSceneId = "NextSceneId";
             public const string GameModel = "GameModel";
+            public const string MenuBackgroundMusic = "MenuBackgroundMusic";
+
         }
     }
 }
