@@ -41,7 +41,7 @@ namespace FYProject
                 return null;
             }
 
-            var assetName = AssetUitity.GetUIFormAsset(drUIForm.AssetName);
+            var assetName = AssetUtility.GetUIFormAsset(drUIForm.AssetName);
             if (!drUIForm.AllowMultiInstance)
             {
                 if (uiComponent.IsLoadingUIForm(assetName))

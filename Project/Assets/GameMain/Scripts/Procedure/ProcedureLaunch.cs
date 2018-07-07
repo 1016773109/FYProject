@@ -2,6 +2,7 @@
 using System;
 using GameFramework.Localization;
 using GameFramework;
+using UnityEngine;
 
 namespace FYProject
 {
@@ -10,6 +11,10 @@ namespace FYProject
     /// </summary>
     public class ProcedureLuace : ProcedureBase
     {
+        private float m_MusicVolume = 0.3f;
+        private float m_SoundVolume = 1f;
+        private float m_UISoundVolume = 1f;
+
         public override bool UseNativeDialog
         {
             get
@@ -22,10 +27,24 @@ namespace FYProject
         {
             base.OnEnter(procedureOwner);
 
+            // 构建信息：发布版本时，把一些数据以 Json 的格式写入 Assets/GameMain/Configs/BuildInfo.txt，供游戏逻辑读取。
+            GameEntry.BuiltinData.InitBuildInfo();
+
             // 语言配置：设置当前使用的语言，如果不设置，则默认使用操作系统语言。
             InitLanguageSettings();
 
-            //...
+            // 变体配置：根据使用的语言，通知底层加载对应的资源变体。
+            InitCurrentVariant();
+
+            // 画质配置：根据检测到的硬件信息 Assets/Main/Configs/DeviceModelConfig 和用户配置数据，设置即将使用的画质选项。
+            InitQualitySettings();
+
+            // 声音配置：根据用户配置数据，设置即将使用的声音选项。
+            InitSoundSettings();
+
+            // 默认字典：加载默认字典文件 Assets/GameMain/Configs/DefaultDictionary.xml。
+            // 此字典文件记录了资源更新前使用的各种语言的字符串，会随 App 一起发布，故不可更新。
+            GameEntry.BuiltinData.InitDefaultDictionary();
         }
 
         protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
@@ -80,8 +99,68 @@ namespace FYProject
             Log.Info("Init language settings complete, current language is '{0}'.", language.ToString());
         }
 
+        /// <summary>
+        /// 变体设置
+        /// </summary>
+        private void InitCurrentVariant()
+        {
+            if (GameEntry.Base.EditorResourceMode)
+            {
+                // 编辑器资源模式不使用 AssetBundle，也就没有变体了
+                return;
+            }
 
+            string currentVariant = null;
+            switch (GameEntry.Localization.Language)
+            {
+                case Language.English:
+                    currentVariant = "en-us";
+                    break;
+                case Language.ChineseSimplified:
+                    currentVariant = "zh-cn";
+                    break;
+                case Language.ChineseTraditional:
+                    currentVariant = "zh-tw";
+                    break;
+                case Language.Korean:
+                    currentVariant = "ko-kr";
+                    break;
+                default:
+                    currentVariant = "zh-cn";
+                    break;
+            }
+
+            GameEntry.Resource.SetCurrentVariant(currentVariant);
+
+            Log.Info("Init current variant complete.");
+        }
+
+        /// <summary>
+        /// 画面质量设置
+        /// </summary>
+        private void InitQualitySettings()
+        {
+            QualityLevelType defaultQuality = GameEntry.BuiltinData.DeviceModelConfig.GetDefaultQualityLevel();
+            int qualityLevenl = GameEntry.Setting.GetInt(Constant.Setting.QualityLevel, (int)defaultQuality);
+            QualitySettings.SetQualityLevel(qualityLevenl, true);
+
+            Log.Info("Init quality settings complete.");
+        }
+
+        /// <summary>
+        /// 音量设置
+        /// </summary>
+        private void InitSoundSettings()
+        {
+            GameEntry.Sound.Mute("Music", GameEntry.Setting.GetBool(Constant.Setting.MusicMuted, false));
+            GameEntry.Sound.SetVolume("Music", GameEntry.Setting.GetFloat(Constant.Setting.MusicVolume, m_MusicVolume));
+            GameEntry.Sound.Mute("Sound", GameEntry.Setting.GetBool(Constant.Setting.SoundMuted, false));
+            GameEntry.Sound.SetVolume("Sound", GameEntry.Setting.GetFloat(Constant.Setting.SoundVolume, m_SoundVolume));
+            GameEntry.Sound.Mute("UISound", GameEntry.Setting.GetBool(Constant.Setting.UISoundMuted, false));
+            GameEntry.Sound.SetVolume("UISound", GameEntry.Setting.GetFloat(Constant.Setting.UISoundVolume, m_UISoundVolume));
+
+            Log.Info("Init sound setting complete.");
+        }
 
     }
-
 }

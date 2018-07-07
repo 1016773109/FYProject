@@ -33,7 +33,7 @@ namespace FYProject
             }
 
             var dataTableNameInType = splitNames.Length > 1 ? splitNames[1] : null;
-            dataTableComponent.LoadDataTable(dataRowType, dataTableName, dataTableNameInType, AssetUitity.GetDataTableAsset(dataTableName), Constant.AssetPriority.DataTableAsset, userData);
+            dataTableComponent.LoadDataTable(dataRowType, dataTableName, dataTableNameInType, AssetUtility.GetDataTableAsset(dataTableName), Constant.AssetPriority.DataTableAsset, userData);
             //Log.Debug("<color=green> dataRowType = {0}, dataTableName = {1}, dataTableNameInType = {2}, AssetUitity.GetDataTableAsset(dataTableName) = {3}</color>", dataRowType, dataTableName, dataTableNameInType, AssetUitity.GetDataTableAsset(dataTableName));
         }
 

@@ -63,7 +63,7 @@ namespace FYProject
                 return;
             }
 
-            GameEntry.Scene.LoadScene(AssetUitity.GetSceneAsset(drScene.AssetName), Constant.AssetPriority.SceneAsset, this);
+            GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), Constant.AssetPriority.SceneAsset, this);
             m_BackgroundMusicId = drScene.BackgroundMusicId;
         }
 

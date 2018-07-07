@@ -13,7 +13,7 @@ namespace FYProject
                 return;
             }
 
-            configComponent.LoadConfig(configName, AssetUitity.GetConfigAsset(configName), Constant.AssetPriority.ConfigAsset, userData);
+            configComponent.LoadConfig(configName, AssetUtility.GetConfigAsset(configName), Constant.AssetPriority.ConfigAsset, userData);
         }
 
     }

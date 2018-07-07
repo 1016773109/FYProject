@@ -1,6 +1,6 @@
 ﻿namespace FYProject
 {
-    public static class AssetUitity
+    public static class AssetUtility
     {
         public static string GetConfigAsset(string assetName)
         {

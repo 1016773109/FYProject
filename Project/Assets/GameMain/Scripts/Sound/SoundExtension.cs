@@ -25,7 +25,7 @@ namespace FYProject
             playSoundParams.VolumeInSoundGroup = drUISound.Volume;
             playSoundParams.SpatialBlend = 0f;
 
-            return soundComponent.PlaySound(AssetUitity.GetUISoundAsset(drUISound.AssetName), "UISound", Constant.AssetPriority.UISoundAsset, playSoundParams, userData);
+            return soundComponent.PlaySound(AssetUtility.GetUISoundAsset(drUISound.AssetName), "UISound", Constant.AssetPriority.UISoundAsset, playSoundParams, userData);
         }
 
         public static int? PlayMusic(this SoundComponent soundComponent, int musicId, object userData = null)
@@ -45,9 +45,52 @@ namespace FYProject
             playSoundParams.FadeInSeconds = FadeVolumeDuration;
             playSoundParams.SpatialBlend = 0f;
 
-            return soundComponent.PlaySound(AssetUitity.GetMusicAsset(drMusic.AssetName), "Music", Constant.AssetPriority.MusicAsset, playSoundParams, userData);
+            return soundComponent.PlaySound(AssetUtility.GetMusicAsset(drMusic.AssetName), "Music", Constant.AssetPriority.MusicAsset, playSoundParams, userData);
         }
 
+        public static void Mute(this SoundComponent soundComponent, string soundGroupName, bool mute)
+        {
+            if (soundGroupName.IsNullOrEmpty())
+            {
+                Log.Warning("Sound group is invalid.");
+                return;
+            }
+
+            ISoundGroup soundGroup = soundComponent.GetSoundGroup(soundGroupName);
+
+            if (soundGroup == null)
+            {
+                Log.Warning("Sound group '{0}' is invalid.", soundGroupName);
+                return;
+            }
+
+            soundGroup.Mute = mute;
+
+            GameEntry.Setting.SetBool(string.Format(Constant.Setting.SoundGroupMuted, soundGroupName), mute);
+            GameEntry.Setting.Save();
+        }
+
+        public static void SetVolume(this SoundComponent soundComponent, string soundGroupName, float volume)
+        {
+            if (soundGroupName.IsNullOrEmpty())
+            {
+                Log.Warning("Sound group is invalid.");
+                return;
+            }
+
+            ISoundGroup soundGroup = soundComponent.GetSoundGroup(soundGroupName);
+
+            if (soundGroup == null)
+            {
+                Log.Warning("Sound group '{0}' is invalid.", soundGroupName);
+                return;
+            }
+
+            soundGroup.Volume = volume;
+
+            GameEntry.Setting.SetFloat(string.Format(Constant.Setting.SoundGroupVolume, soundGroupName), volume);
+            GameEntry.Setting.Save();
+        }
 
     }
 }

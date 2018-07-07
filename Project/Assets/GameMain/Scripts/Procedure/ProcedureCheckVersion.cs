@@ -2,11 +2,12 @@
 using UnityGameFramework.Runtime;
 using GameFramework.Event;
 using UnityEngine;
+using GameFramework;
 
 namespace FYProject
 {
     /// <summary>
-    /// 版本检测流程 TODO
+    /// 版本检测流程
     /// </summary>
     public class ProcedureCheckVersion : ProcedureBase
     {
@@ -70,8 +71,18 @@ namespace FYProject
             iOSSystemVersion = UnityEngine.iOS.Device.systemVersion;//ios系统版本
             iOSVendorIdentifier = UnityEngine.iOS.Device.vendorIdentifier ?? string.Empty;//ios供应商标识符
 #endif
-
-
+            string gameVersion = GameEntry.Base.GameVersion;//游戏版本
+            string platform = Application.platform.ToString();//游戏运行的平台
+            string language = GameEntry.Localization.Language.ToString();//本地语言
+            string unityVersion = Application.unityVersion;//Unity版本
+            string installMode = Application.installMode.ToString();//返回应用程序安装模式
+            string sandboxType = Application.sandboxType.ToString();//应用程序运行的沙盒名称
+            string screenWidth = Screen.width.ToString();//屏幕宽度
+            string screenHeight = Screen.height.ToString();//屏幕高度
+            string screenDpi = Screen.dpi.ToString();//屏幕dpi
+            string screenOrientation = Screen.orientation.ToString();//屏幕的逻辑方向
+            string screenResolution = string.Format("{0} x {1} @ {2}Hz", Screen.currentResolution.width.ToString(), Screen.currentResolution.height.ToString(), Screen.currentResolution.refreshRate.ToString());//屏幕分辨率
+            string useWifi = (Application.internetReachability == NetworkReachability.ReachableViaLocalAreaNetwork).ToString();
 
             WWWForm wwwForm = new WWWForm();
             wwwForm.AddField("DeviceId", WebUtility.EscapeString(deviceId));
@@ -97,21 +108,64 @@ namespace FYProject
             wwwForm.AddField("ScreenResolution", WebUtility.EscapeString(screenResolution));
             wwwForm.AddField("UseWifi", WebUtility.EscapeString(useWifi));
 
+            GameEntry.WebRequest.AddWebRequest(GameEntry.BuiltinData.BuildInfo.CheckVersionUrl, wwwForm, this);
         }
 
         private void OnWebRequestSuccess(object sender, GameEventArgs e)
         {
+            WebRequestSuccessEventArgs ne = (WebRequestSuccessEventArgs)e;
+            if (ne.UserData != this)
+            {
+                return;
+            }
 
+            string responseJson = Utility.Converter.GetString(ne.GetWebResponseBytes());
+            VersionInfo versionInfo = Utility.Json.ToObject<VersionInfo>(responseJson);
+            if (versionInfo == null)
+            {
+                Log.Error("Parse VersionInfo failure.");
+                return;
+            }
+
+            Log.Info("Latest game version is '{0}', local game version is '{1}'.", versionInfo.LatestGameVersion, GameEntry.Base.GameVersion);
+
+            if (versionInfo.ForceGameUpdate)
+            {
+                var dialogParams = new DialogParams();
+                dialogParams.Mode = 2;
+                dialogParams.Title = GameEntry.Localization.GetString("ForceUpdate.Title");
+                dialogParams.Message = GameEntry.Localization.GetString("ForceUpdate.Message");
+                dialogParams.ConfirmText = GameEntry.Localization.GetString("ForceUpdate.UpdateButton");
+                dialogParams.OnClickConfirm = (userData) => { Application.OpenURL(versionInfo.GameUpdateUrl); };
+                dialogParams.ConfirmText = GameEntry.Localization.GetString("ForceUpdate.QuitButton");
+                dialogParams.OnClickCancel = (userData) => { UnityGameFramework.Runtime.GameEntry.Shutdown(ShutdownType.Quit); };
+
+                GameEntry.UI.OpenDialog(dialogParams);
+
+                return;
+            }
+
+            GameEntry.Resource.InitResources();
         }
 
         private void OnWebRequestFailure(object sender, GameEventArgs e)
         {
+            WebRequestFailureEventArgs ne = (WebRequestFailureEventArgs)e;
+            if (ne.UserData != this)
+            {
+                return;
+            }
 
+            Log.Warning("Check version failure.");
+
+            GameEntry.Resource.InitResources();
         }
 
         private void OnResourceInitComplete(object sender, GameEventArgs e)
         {
+            m_ResourceInitComplete = true;
 
+            Log.Info("Init resource complete.");
         }
     }
 

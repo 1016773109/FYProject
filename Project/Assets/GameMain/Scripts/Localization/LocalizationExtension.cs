@@ -13,7 +13,7 @@ namespace FYProject
                 return;
             }
 
-            localizationComponent.LoadDictionary(dictionaryName, AssetUitity.GetDictionaryAsset(dictionaryName), Constant.AssetPriority.ConfigAsset, userData);
+            localizationComponent.LoadDictionary(dictionaryName, AssetUtility.GetDictionaryAsset(dictionaryName), Constant.AssetPriority.ConfigAsset, userData);
         }
 
     }

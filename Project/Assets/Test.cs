@@ -50,7 +50,7 @@ public class Test : MonoBehaviour
         playSoundParams.VolumeInSoundGroup = 1;
         playSoundParams.SpatialBlend = 0f;
 
-        return GameEntry.Sound.PlaySound(AssetUitity.GetUISoundAsset(assetName), "UISound", Constant.AssetPriority.UISoundAsset, playSoundParams);
+        return GameEntry.Sound.PlaySound(AssetUtility.GetUISoundAsset(assetName), "UISound", Constant.AssetPriority.UISoundAsset, playSoundParams);
     }
 
     public void ResumeSound(int seriaId)
