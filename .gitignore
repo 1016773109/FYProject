@@ -1,3 +1,6 @@
 /Project/Library
 /Project/.vs
 /Project/Temp
+/Project/*.user
+/Project/*.csproj
+/Project/*.sln
