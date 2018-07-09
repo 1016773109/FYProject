@@ -41,5 +41,11 @@
         {
             return string.Format("Assets/GameMain/Audios/Music/{0}.mp3", assetName);
         }
+
+        public static string GetEntityAsset(string assetName)
+        {
+            return string.Format("Assets/GameMain/Entities/{0}.prefab", assetName);
+        }
+
     }
 }

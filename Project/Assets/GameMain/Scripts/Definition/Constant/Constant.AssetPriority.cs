@@ -15,6 +15,7 @@
             public const int UIFormAsset = 50;
             public const int MusicAsset = 20;
 
+            public const int PlayerAsset = 90;
 
 
 
