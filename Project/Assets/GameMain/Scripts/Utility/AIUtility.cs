@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FYProject
 {
-    public class Player : Role
+    public class AIUtility
     {
     }
 }

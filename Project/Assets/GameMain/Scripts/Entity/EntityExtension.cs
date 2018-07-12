@@ -42,5 +42,10 @@ namespace FYProject
         {
             return --s_SerialId;
         }
+
+        public static void HideEntity(this EntityComponent entityComponent, Entity entity)
+        {
+            entityComponent.HideEntity(entity.Entity);
+        }
     }
 }

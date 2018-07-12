@@ -27,12 +27,12 @@ namespace FYProject
             GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, ShowEntitySuccessEvent);
             GameEntry.Event.Subscribe(ShowEntityFailureEventArgs.EventId, ShowEntityFailureEvent);
 
-
+            //主角创建
             var playerData = new PlayerData(GameEntry.Entity.GenerateSerialId(), playerTypeId);
-            playerData.Name = "";
+            playerData.Name = "MyPlayer";
             playerData.Position = Vector3.zero;
             GameEntry.Entity.ShowPlayer(playerData);
-            //TODO 主角创建
+
             GameOver = false;
             m_Player = null;
         }
@@ -45,13 +45,20 @@ namespace FYProject
 
         public virtual void Update(float elapseSeconds, float realElapseSeconds)
         {
-
+            if (m_Player != null && m_Player.IsDead)
+            {
+                GameOver = true;
+                return;
+            }
         }
 
         private void ShowEntitySuccessEvent(object sender, GameEventArgs e)
         {
             ShowEntitySuccessEventArgs ne = (ShowEntitySuccessEventArgs)e;
-            //...
+            if (ne.EntityLogicType == typeof(Player))
+            {
+                m_Player = (Player)ne.Entity.Logic;
+            }
         }
 
         private void ShowEntityFailureEvent(object sender, GameEventArgs e)
@@ -59,7 +66,6 @@ namespace FYProject
             ShowEntityFailureEventArgs ne = (ShowEntityFailureEventArgs)e;
             Log.Warning("Show entity failure with error message '{0}'.", ne.ErrorMessage);
         }
-
 
     }
 }
