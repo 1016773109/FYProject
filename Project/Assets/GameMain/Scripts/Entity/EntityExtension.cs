@@ -19,6 +19,11 @@ namespace FYProject
             entityComponent.ShowEntity(typeof(Player), "Player", Constant.AssetPriority.PlayerAsset, data);
         }
 
+        public static void ShowNode(this EntityComponent entityComponent, EntityData data)
+        {
+            entityComponent.ShowEntity(typeof(Player), "Node", Constant.AssetPriority.NodeAsset, data);
+        }
+
         public static void ShowEntity(this EntityComponent entityComponent, Type logicType, string entiyGroup, int priority, EntityData data)
         {
             if (data == null)
@@ -47,5 +52,6 @@ namespace FYProject
         {
             entityComponent.HideEntity(entity.Entity);
         }
+
     }
 }

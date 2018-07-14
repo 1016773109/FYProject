@@ -15,7 +15,7 @@ namespace FYProject
             private set;
         }
 
-#if UNITY_2018_OR_NEWER
+#if UNITY_2017_3_OR_NEWER
         protected override void OnShow(object userData)
 #else
         protected internal override void OnShow(object userData)

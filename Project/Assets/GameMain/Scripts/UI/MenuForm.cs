@@ -8,6 +8,7 @@ namespace FYProject
     {
         [SerializeField]
         private GameObject m_QuitButton = null;
+        private GameObject m_ContinuesButton = null;
 
         private ProcedureMenu m_ProcedureMenu = null;
 
@@ -42,7 +43,7 @@ namespace FYProject
         }
 
 
-#if UNITY_2018_OR_NEWER
+#if UNITY_2017_3_OR_NEWER
         protected override void OnOpen(object userData)
 #else
         protected internal override void OnOpen(object userData)
@@ -57,10 +58,13 @@ namespace FYProject
                 return;
             }
 
+
+            //TODO m_ContinuesButton.SetActive(是否有存档);
+
             m_QuitButton.SetActive(Application.platform != RuntimePlatform.IPhonePlayer);
         }
 
-#if UNITY_2018_OR_NEWER
+#if UNITY_2017_3_OR_NEWER
         protected override void OnClose(object userData)
 #else
         protected internal override void OnClose(object userData)

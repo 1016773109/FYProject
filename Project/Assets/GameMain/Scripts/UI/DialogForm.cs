@@ -85,7 +85,7 @@ namespace FYProject
             }
         }
 
-#if UNITY_2018_OR_NEWER
+#if UNITY_2017_3_OR_NEWER
         protected override void OnOpen(object userData)
 #else
         protected internal override void OnOpen(object userData)
@@ -121,7 +121,7 @@ namespace FYProject
             m_OnClickOther = dialogParams.OnClickOther;
         }
 
-#if UNITY_2018_OR_NEWER
+#if UNITY_2017_3_OR_NEWER
         protected override void OnClose(object userData)
 #else
         protected internal override void OnClose(object userData)

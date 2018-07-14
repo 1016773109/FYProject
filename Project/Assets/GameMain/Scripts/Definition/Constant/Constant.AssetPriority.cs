@@ -16,6 +16,7 @@
             public const int MusicAsset = 20;
 
             public const int PlayerAsset = 90;
+            public const int NodeAsset = 80;
 
 
 

@@ -16,7 +16,7 @@ namespace FYProject
 
         private int m_Music = 3;//音乐编号
 
-#if UNITY_2018_OR_NEWER
+#if UNITY_2017_3_OR_NEWER
         protected override void OnInit(object userData)
 #else
         protected internal override void OnInit(object userData)
@@ -33,7 +33,7 @@ namespace FYProject
             //referenceResolution??
             m_InitPosition = -0.5f * canvasScaler.referenceResolution.x * Screen.height / Screen.width;
         }
-#if UNITY_2018_OR_NEWER
+#if UNITY_2017_3_OR_NEWER
         protected override void OnOpen(object userData)
 #else
         protected internal override void OnOpen(object userData)
@@ -46,7 +46,7 @@ namespace FYProject
             //改变背景音乐
             GameEntry.Sound.PlayMusic(m_Music);
         }
-#if UNITY_2018_OR_NEWER
+#if UNITY_2017_3_OR_NEWER
         protected override void OnClose(object userData)
 #else
         protected internal override void OnClose(object userData)
@@ -57,7 +57,7 @@ namespace FYProject
             //还原菜单背景音乐
             GameEntry.Sound.PlayMusic(((ProcedureMenu)userData).GetBackgroundMusic());
         }
-#if UNITY_2018_OR_NEWER
+#if UNITY_2017_3_OR_NEWER
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
 #else
         protected internal override void OnUpdate(float elapseSeconds, float realElapseSeconds)
