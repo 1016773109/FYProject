@@ -77,7 +77,7 @@ namespace FYProject
 
         private void RefreshData()
         {
-            m_MaxHP = 0;
+            m_MaxHP = 100;//TODO
             m_Attack = 0;
             m_Defense = 0;
 

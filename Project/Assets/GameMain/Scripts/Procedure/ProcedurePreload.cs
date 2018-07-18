@@ -79,9 +79,13 @@ namespace FYProject
             LoadConfig("DefaultConfig");
 
             // Preload data tables
-            LoadDataTable("Scene");
-            LoadDataTable("UIForm");
+            LoadDataTable("Entity");
+            LoadDataTable("MapNode");
             LoadDataTable("Music");
+            LoadDataTable("Role");
+            LoadDataTable("Scene");
+            LoadDataTable("Sound");
+            LoadDataTable("UIForm");
             LoadDataTable("UISound");
 
             // Preload dictionaries

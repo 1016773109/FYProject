@@ -1,6 +1,6 @@
 ﻿namespace FYProject
 {
-    public enum NodeType
+    public enum MapNodeType
     {
         /// <summary>
         /// 宝箱

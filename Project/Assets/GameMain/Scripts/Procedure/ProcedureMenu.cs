@@ -48,8 +48,6 @@ namespace FYProject
 
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
-            base.OnLeave(procedureOwner, isShutdown);
-
             GameEntry.Event.Unsubscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
 
             if (m_MenuForm != null)
@@ -57,6 +55,7 @@ namespace FYProject
                 m_MenuForm.Close(isShutdown);
                 m_MenuForm = null;
             }
+            base.OnLeave(procedureOwner, isShutdown);
         }
 
         protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)

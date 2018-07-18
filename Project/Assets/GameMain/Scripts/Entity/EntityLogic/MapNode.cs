@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FYProject
 {
-    public class Node : Entity
+    public class MapNode : Entity
     {
 
 

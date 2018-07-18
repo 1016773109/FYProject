@@ -44,7 +44,7 @@
 
         public static string GetEntityAsset(string assetName)
         {
-            return string.Format("Assets/GameMain/Entities/{0}.prefab", assetName);
+            return string.Format("Assets/GameMain/Prefabs/Entities/{0}.prefab", assetName);
         }
 
     }

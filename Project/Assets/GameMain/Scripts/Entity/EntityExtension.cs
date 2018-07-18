@@ -19,9 +19,9 @@ namespace FYProject
             entityComponent.ShowEntity(typeof(Player), "Player", Constant.AssetPriority.PlayerAsset, data);
         }
 
-        public static void ShowNode(this EntityComponent entityComponent, EntityData data)
+        public static void ShowNode(this EntityComponent entityComponent, MapNodeData data)
         {
-            entityComponent.ShowEntity(typeof(Player), "Node", Constant.AssetPriority.NodeAsset, data);
+            entityComponent.ShowEntity(typeof(MapNode), "MapNode", Constant.AssetPriority.MapNodeAsset, data);
         }
 
         public static void ShowEntity(this EntityComponent entityComponent, Type logicType, string entiyGroup, int priority, EntityData data)
