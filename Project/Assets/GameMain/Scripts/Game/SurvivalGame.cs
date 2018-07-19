@@ -26,7 +26,7 @@ namespace FYProject
             for (int i = 0; i < Random.Range(minNodeCount, maxNodeCount); i++)
             {
                 var nodeData = new MapNodeData(GameEntry.Entity.GenerateSerialId(), nodeTypeId);
-                nodeData.NodeType = (MapNodeType)Random.Range(0, System.Enum.GetNames(typeof(MapNodeType)).Length);
+                nodeData.MapNodeType = (MapNodeType)Random.Range(0, System.Enum.GetNames(typeof(MapNodeType)).Length);
                 GameEntry.Entity.ShowNode(nodeData);
             }
 

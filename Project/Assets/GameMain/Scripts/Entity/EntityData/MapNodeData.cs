@@ -19,7 +19,7 @@ namespace FYProject
         }
 
 
-        public MapNodeType NodeType
+        public MapNodeType MapNodeType
         {
             get;
             set;
