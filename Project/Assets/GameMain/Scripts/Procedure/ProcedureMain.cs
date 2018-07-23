@@ -7,13 +7,14 @@ using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedure
 namespace FYProject
 {
     /// <summary>
-    /// 主场景流程
+    /// 主场景切换流程
     /// </summary>
     public class ProcedureMain : ProcedureBase
     {
         private bool m_GotoMenu = false;
         private readonly Dictionary<GameMode, GameBase> m_Games = new Dictionary<GameMode, GameBase>();
         private GameBase m_CurrentGame = null;
+
 
         public override bool UseNativeDialog
         {
@@ -37,6 +38,9 @@ namespace FYProject
             GameMode gameModel = (GameMode)procedureOwner.GetData<VarInt>(Constant.ProcedureData.GameModel).Value;
             m_CurrentGame = m_Games[gameModel];
             m_CurrentGame.Initialize();
+
+            //TODO
+            ChangeState<ProcedureGame>(procedureOwner);
         }
 
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)

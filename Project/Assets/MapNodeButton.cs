@@ -23,41 +23,43 @@ public class MapNodeButton : EventTrigger
         sprite.color = color;
     }
 
-    public override void OnPointerEnter(PointerEventData eventData)
-    {
-        Debug.Log("OnPointerEnter");
-        SetColor(HighlightedColor);
-    }
+    #region test
+    //public override void OnPointerEnter(PointerEventData eventData)
+    //{
+    //    Debug.Log("OnPointerEnter");
+    //    SetColor(HighlightedColor);
+    //}
 
-    public override void OnPointerExit(PointerEventData eventData)
-    {
-        Debug.Log("OnPointerExit");
-        SetColor(NormalColor);
-    }
+    //public override void OnPointerExit(PointerEventData eventData)
+    //{
+    //    Debug.Log("OnPointerExit");
+    //    SetColor(NormalColor);
+    //}
 
-    public override void OnPointerDown(PointerEventData eventData)
-    {
-        Debug.Log("OnPointerDown");
-        SetColor(PressedColor);
-    }
+    //public override void OnPointerDown(PointerEventData eventData)
+    //{
+    //    Debug.Log("OnPointerDown");
+    //    SetColor(PressedColor);
+    //}
 
-    public override void OnPointerUp(PointerEventData eventData)
-    {
-        Debug.Log("OnPointerUp");
-        SetColor(HighlightedColor);
-    }
+    //public override void OnPointerUp(PointerEventData eventData)
+    //{
+    //    Debug.Log("OnPointerUp");
+    //    SetColor(HighlightedColor);
+    //}
 
-    public override void OnPointerClick(PointerEventData eventData)
-    {
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            Debug.Log("OnPointerClick");
-        }
-    }
+    //public override void OnPointerClick(PointerEventData eventData)
+    //{
+    //    if (eventData.button == PointerEventData.InputButton.Left)
+    //    {
+    //        Debug.Log("OnPointerClick");
+    //    }
+    //}
 
-    void OnMouseOver()
-    {
-        Debug.Log("OnMouseOver");
-    }
+    //void OnMouseOver()
+    //{
+    //    Debug.Log("OnMouseOver");
+    //}
+    #endregion
 
 }
