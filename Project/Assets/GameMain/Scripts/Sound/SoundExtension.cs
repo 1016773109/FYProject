@@ -7,7 +7,7 @@ namespace FYProject
     public static class SoundExtension
     {
         private const float FadeVolumeDuration = 1f;
-
+        private static int? s_MusicSerialId = null;
 
         public static int? PlayUISound(this SoundComponent soundComponent, int uiSoundId, object userData = null)
         {
@@ -45,7 +45,19 @@ namespace FYProject
             playSoundParams.FadeInSeconds = FadeVolumeDuration;
             playSoundParams.SpatialBlend = 0f;
 
-            return soundComponent.PlaySound(AssetUtility.GetMusicAsset(drMusic.AssetName), "Music", Constant.AssetPriority.MusicAsset, playSoundParams, userData);
+            s_MusicSerialId = soundComponent.PlaySound(AssetUtility.GetMusicAsset(drMusic.AssetName), "Music", Constant.AssetPriority.MusicAsset, playSoundParams, userData);
+            return s_MusicSerialId;
+        }
+
+        public static void StopMusic(this SoundComponent soundComponent)
+        {
+            if (!s_MusicSerialId.HasValue)
+            {
+                return;
+            }
+
+            soundComponent.StopSound(s_MusicSerialId.Value, FadeVolumeDuration);
+            s_MusicSerialId = null;
         }
 
         public static void Mute(this SoundComponent soundComponent, string soundGroupName, bool mute)
@@ -70,6 +82,24 @@ namespace FYProject
             GameEntry.Setting.Save();
         }
 
+        public static bool IsMuted(this SoundComponent soundComponent, string soundGroupName)
+        {
+            if (string.IsNullOrEmpty(soundGroupName))
+            {
+                Log.Warning("Sound group is invalid.");
+                return true;
+            }
+
+            ISoundGroup soundGroup = soundComponent.GetSoundGroup(soundGroupName);
+            if (soundGroup == null)
+            {
+                Log.Warning("Sound group '{0}' is invalid.", soundGroupName);
+                return true;
+            }
+
+            return soundGroup.Mute;
+        }
+
         public static void SetVolume(this SoundComponent soundComponent, string soundGroupName, float volume)
         {
             if (soundGroupName.IsNullOrEmpty())
@@ -90,6 +120,24 @@ namespace FYProject
 
             GameEntry.Setting.SetFloat(string.Format(Constant.Setting.SoundGroupVolume, soundGroupName), volume);
             GameEntry.Setting.Save();
+        }
+
+        public static float GetVolume(this SoundComponent soundComponent, string soundGroupName)
+        {
+            if (string.IsNullOrEmpty(soundGroupName))
+            {
+                Log.Warning("Sound group is invalid.");
+                return 0;
+            }
+
+            ISoundGroup soundGroup = soundComponent.GetSoundGroup(soundGroupName);
+            if (soundGroup == null)
+            {
+                Log.Warning("Sound group '{0}' is invalid.", soundGroupName);
+                return 0;
+            }
+
+            return soundGroup.Volume;
         }
 
     }
