@@ -99,6 +99,16 @@ namespace FYProject
                     texts[i].text = GameEntry.Localization.GetString(texts[i].text);
                 }
             }
+
+            Dropdown[] dropdowns = GetComponentsInChildren<Dropdown>(true);
+            for (int i = 0; i < dropdowns.Length; i++)
+            {
+                var options = dropdowns[i].options;
+                for (int j = 0; j < options.Count; j++)
+                {
+                    options[j].text = GameEntry.Localization.GetString(options[j].text);
+                }
+            }
         }
 
 #if UNITY_2017_3_OR_NEWER

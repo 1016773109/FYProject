@@ -1,8 +1,5 @@
 ﻿using GameFramework.Localization;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
@@ -33,14 +30,17 @@ namespace FYProject
         [SerializeField]
         private CanvasGroup m_LanguageTipsCanvasGroup = null;
 
-        [SerializeField]
-        private Toggle m_EnglishToggle = null;
+        //[SerializeField]
+        //private Toggle m_EnglishToggle = null;
+
+        //[SerializeField]
+        //private Toggle m_ChineseSimplifiedToggle = null;
+
+        //[SerializeField]
+        //private Toggle m_ChineseTraditionalToggle = null;
 
         [SerializeField]
-        private Toggle m_ChineseSimplifiedToggle = null;
-
-        [SerializeField]
-        private Toggle m_ChineseTraditionalToggle = null;
+        private Dropdown m_LanguageDropdown = null;
 
 
         private Language m_SelectedLanguage = Language.Unspecified;
@@ -129,6 +129,22 @@ namespace FYProject
 #if UNITY_2017_3_OR_NEWER
         protected override void OnOpen(object userData)
 #else
+        protected internal override void OnInit(object userData)
+#endif
+        {
+            m_LanguageDropdown.ClearOptions();
+            var OptionDataList = new System.Collections.Generic.List<Dropdown.OptionData>();
+            OptionDataList.Add(new Dropdown.OptionData() { text = "Language.ChineseSimplified" });
+            OptionDataList.Add(new Dropdown.OptionData() { text = "Language.ChineseTraditional" });
+            OptionDataList.Add(new Dropdown.OptionData() { text = "Language.English" });
+            m_LanguageDropdown.AddOptions(OptionDataList);
+
+            base.OnInit(userData);
+        }
+
+#if UNITY_2017_3_OR_NEWER
+        protected override void OnOpen(object userData)
+#else
         protected internal override void OnOpen(object userData)
 #endif
         {
@@ -147,17 +163,18 @@ namespace FYProject
             switch (m_SelectedLanguage)
             {
                 case Language.English:
-                    m_EnglishToggle.isOn = true;
+                    m_LanguageDropdown.value = 2;
                     break;
                 case Language.ChineseSimplified:
-                    m_ChineseSimplifiedToggle.isOn = true;
+                    m_LanguageDropdown.value = 0;
                     break;
                 case Language.ChineseTraditional:
-                    m_ChineseTraditionalToggle.isOn = true;
+                    m_LanguageDropdown.value = 1;
                     break;
                 default:
                     break;
             }
+
         }
 
 #if UNITY_2017_3_OR_NEWER
