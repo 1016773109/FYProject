@@ -78,36 +78,53 @@ namespace FYProject
             GameEntry.Sound.SetVolume("UISound", volume);
         }
 
-        public void OnEnglishSelected(bool isOn)
+        //public void OnEnglishSelected(bool isOn)
+        //{
+        //    if (!isOn)
+        //    {
+        //        return;
+        //    }
+
+        //    m_SelectedLanguage = Language.English;
+        //    RefreshLanguageTips();
+        //}
+
+        //public void OnChineseSimplifiedSelected(bool isOn)
+        //{
+        //    if (!isOn)
+        //    {
+        //        return;
+        //    }
+
+        //    m_SelectedLanguage = Language.ChineseSimplified;
+        //    RefreshLanguageTips();
+        //}
+
+        //public void OnChineseTraditionalSelected(bool isOn)
+        //{
+        //    if (!isOn)
+        //    {
+        //        return;
+        //    }
+
+        //    m_SelectedLanguage = Language.ChineseTraditional;
+        //    RefreshLanguageTips();
+        //}
+
+        public void OnLanguageChanged(int index)
         {
-            if (!isOn)
+            if (index == 0)
             {
-                return;
+                m_SelectedLanguage = Language.ChineseSimplified;
             }
-
-            m_SelectedLanguage = Language.English;
-            RefreshLanguageTips();
-        }
-
-        public void OnChineseSimplifiedSelected(bool isOn)
-        {
-            if (!isOn)
+            else if (index == 1)
             {
-                return;
+                m_SelectedLanguage = Language.ChineseTraditional;
             }
-
-            m_SelectedLanguage = Language.ChineseSimplified;
-            RefreshLanguageTips();
-        }
-
-        public void OnChineseTraditionalSelected(bool isOn)
-        {
-            if (!isOn)
+            else if (index == 2)
             {
-                return;
+                m_SelectedLanguage = Language.English;
             }
-
-            m_SelectedLanguage = Language.ChineseTraditional;
             RefreshLanguageTips();
         }
 
