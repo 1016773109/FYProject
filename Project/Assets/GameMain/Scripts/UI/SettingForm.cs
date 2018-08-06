@@ -1,5 +1,5 @@
 ﻿using GameFramework.Localization;
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
@@ -8,6 +8,19 @@ namespace FYProject
 {
     public class SettingForm : UGuiForm
     {
+        //添加语言时添加一条适配数据
+        List<LanguageData> LanguageDataList = new List<LanguageData>()
+        {
+            new LanguageData(){language = Language.ChineseSimplified, languageStr = "Language.ChineseSimplified" },
+            new LanguageData(){language = Language.ChineseTraditional, languageStr = "Language.ChineseTraditional" },
+            new LanguageData(){language = Language.English, languageStr = "Language.English" },
+        };
+
+        internal class LanguageData
+        {
+            public Language language;
+            public string languageStr;
+        }
 
         [SerializeField]
         private Toggle m_MusicMuteToggle = null;
@@ -113,18 +126,11 @@ namespace FYProject
 
         public void OnLanguageChanged(int index)
         {
-            if (index == 0)
+            if (index >= LanguageDataList.Count)
             {
-                m_SelectedLanguage = Language.ChineseSimplified;
+                return;
             }
-            else if (index == 1)
-            {
-                m_SelectedLanguage = Language.ChineseTraditional;
-            }
-            else if (index == 2)
-            {
-                m_SelectedLanguage = Language.English;
-            }
+            m_SelectedLanguage = LanguageDataList[index].language;
             RefreshLanguageTips();
         }
 
@@ -150,10 +156,11 @@ namespace FYProject
 #endif
         {
             m_LanguageDropdown.ClearOptions();
-            var OptionDataList = new System.Collections.Generic.List<Dropdown.OptionData>();
-            OptionDataList.Add(new Dropdown.OptionData() { text = "Language.ChineseSimplified" });
-            OptionDataList.Add(new Dropdown.OptionData() { text = "Language.ChineseTraditional" });
-            OptionDataList.Add(new Dropdown.OptionData() { text = "Language.English" });
+            var OptionDataList = new List<Dropdown.OptionData>();
+            for (int i = 0; i < LanguageDataList.Count; i++)
+            {
+                OptionDataList.Add(new Dropdown.OptionData() { text = LanguageDataList[i].languageStr });
+            }
             m_LanguageDropdown.AddOptions(OptionDataList);
 
             base.OnInit(userData);
@@ -177,21 +184,15 @@ namespace FYProject
             m_UISoundVolumeSlider.value = GameEntry.Sound.GetVolume("UISound");
 
             m_SelectedLanguage = GameEntry.Localization.Language;
-            switch (m_SelectedLanguage)
+            for (int i = 0; i < LanguageDataList.Count; i++)
             {
-                case Language.English:
-                    m_LanguageDropdown.value = 2;
+                if (m_SelectedLanguage == LanguageDataList[i].language)
+                {
+                    m_LanguageDropdown.value = i;
                     break;
-                case Language.ChineseSimplified:
-                    m_LanguageDropdown.value = 0;
-                    break;
-                case Language.ChineseTraditional:
-                    m_LanguageDropdown.value = 1;
-                    break;
-                default:
-                    break;
+                }
             }
-
+            RefreshLanguageTips();
         }
 
 #if UNITY_2017_3_OR_NEWER
@@ -212,5 +213,6 @@ namespace FYProject
         {
             m_LanguageTipsCanvasGroup.gameObject.SetActive(m_SelectedLanguage != GameEntry.Localization.Language);
         }
+
     }
 }
