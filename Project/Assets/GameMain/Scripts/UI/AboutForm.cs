@@ -16,6 +16,8 @@ namespace FYProject
 
         private int m_Music = 3;//音乐编号
 
+        private int m_menuMusic = 0;//
+
 #if UNITY_2017_3_OR_NEWER
         protected override void OnInit(object userData)
 #else
@@ -43,6 +45,10 @@ namespace FYProject
 
             m_Transform.SetLocalPositionY(m_InitPosition);
 
+            if (userData != null)
+            {
+                m_menuMusic = (int)userData;
+            }
             //改变背景音乐
             GameEntry.Sound.PlayMusic(m_Music);
         }
@@ -55,7 +61,7 @@ namespace FYProject
             base.OnClose(userData);
 
             //还原菜单背景音乐
-            GameEntry.Sound.PlayMusic(((ProcedureMenu)userData).GetBackgroundMusic());
+            GameEntry.Sound.PlayMusic(m_menuMusic);
         }
 #if UNITY_2017_3_OR_NEWER
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)

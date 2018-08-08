@@ -30,6 +30,8 @@ namespace FYProject
 
         public static int? PlayMusic(this SoundComponent soundComponent, int musicId, object userData = null)
         {
+            soundComponent.StopMusic();
+
             var dtMusic = GameEntry.DataTable.GetDataTable<DRMusic>();
             var drMusic = dtMusic.GetDataRow(musicId);
             if (drMusic == null)
@@ -45,7 +47,7 @@ namespace FYProject
             playSoundParams.FadeInSeconds = FadeVolumeDuration;
             playSoundParams.SpatialBlend = 0f;
 
-            s_MusicSerialId = soundComponent.PlaySound(AssetUtility.GetMusicAsset(drMusic.AssetName), "Music", Constant.AssetPriority.MusicAsset, playSoundParams, userData);
+            s_MusicSerialId = soundComponent.PlaySound(AssetUtility.GetMusicAsset(drMusic.AssetName), "Music", Constant.AssetPriority.MusicAsset, playSoundParams, null, userData);
             return s_MusicSerialId;
         }
 
