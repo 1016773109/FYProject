@@ -26,13 +26,13 @@ namespace FYProject
         {
             base.OnInit(userData);
 
-            CanvasScaler canvasScaler = GetComponentInChildren<CanvasScaler>();
+            CanvasScaler canvasScaler = GetComponentInParent<CanvasScaler>();
             if (canvasScaler == null)
             {
                 Log.Warning("Can not find CanvasScaler component.");
                 return;
             }
-            //referenceResolution??
+
             m_InitPosition = -0.5f * canvasScaler.referenceResolution.x * Screen.height / Screen.width;
         }
 #if UNITY_2017_3_OR_NEWER

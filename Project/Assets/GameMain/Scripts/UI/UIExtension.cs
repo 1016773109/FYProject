@@ -16,7 +16,7 @@ namespace FYProject
         {
             float time = 0;
             float originalAlpha = canvasGroup.alpha;
-            while (time > duration)
+            while (time < duration)
             {
                 time += Time.deltaTime;
                 canvasGroup.alpha = Mathf.Lerp(originalAlpha, alpha, time / duration);
